@@ -5,6 +5,7 @@ import {
   setFilterAction,
 } from '../../store/filter/filter.actions';
 import { AppState } from '../../app.reducer';
+import { deleteAllCompletedTodos } from '../../store/todos/todo.actions';
 
 @Component({
   selector: 'app-todo-footer',
@@ -33,5 +34,9 @@ export class TodoFooterComponent implements OnInit {
 
   getIsOptionSelected(option: filtersTypes) {
     return this.currentFilter === option;
+  }
+
+  deleteAllCompleted(): void {
+    this.store.dispatch(deleteAllCompletedTodos());
   }
 }

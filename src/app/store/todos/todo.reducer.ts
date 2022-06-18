@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import {
   addTodoAction,
+  deleteAllCompletedTodos,
   deleteTodoAction,
   editAction,
   toggleCompletedAction,
@@ -26,5 +27,8 @@ export const todoReducer = createReducer(
   ),
   on(toggleCompletedAllAction, (state) =>
     state.map((todo) => ({ ...todo, completed: !todo.completed }))
+  ),
+  on(deleteAllCompletedTodos, (state) =>
+    state.filter((todo) => !todo.completed)
   )
 );
