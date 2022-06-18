@@ -8,3 +8,7 @@ export const toggleCompletedAction = createAction(
   '[Toggle completed]',
   props<{ id: number }>()
 );
+export const editAction = createAction(
+  'Edit Todo',
+  props<{ id: number; text: string }>()
+);

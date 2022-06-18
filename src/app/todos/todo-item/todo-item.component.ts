@@ -4,6 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { toggleCompletedAction } from 'src/app/store/todos/todo.actions';
 import { AppState } from '../../app.reducer';
+import { editAction } from '../../store/todos/todo.actions';
 
 @Component({
   selector: 'app-todo-item',
@@ -36,11 +37,23 @@ export class TodoItemComponent implements OnInit {
 
   setEditing(): void {
     this.editing = true;
+    this.editInput.setValue(this.todo.text);
     setTimeout(() => {
       this.editInputEl.nativeElement.select();
     }, 1);
   }
   unsetEditing(): void {
     this.editing = false;
+  }
+  editTodo(): void {
+    if (this.editInput.valid) {
+      this.store.dispatch(
+        editAction({
+          id: this.todo.id,
+          text: this.editInput.value,
+        })
+      );
+      this.unsetEditing();
+    }
   }
 }

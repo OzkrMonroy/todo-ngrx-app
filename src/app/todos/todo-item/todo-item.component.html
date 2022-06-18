@@ -10,6 +10,7 @@
     [formControl]="editInput"
     type="text"
     (blur)="unsetEditing()"
+    (keyup.enter)="editTodo()"
     #editInputEl
   />
 </li>
