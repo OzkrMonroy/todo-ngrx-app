@@ -2,7 +2,10 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Todo } from '../models/todo.model';
 import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { toggleCompletedAction } from 'src/app/store/todos/todo.actions';
+import {
+  deleteTodoAction,
+  toggleCompletedAction,
+} from 'src/app/store/todos/todo.actions';
 import { AppState } from '../../app.reducer';
 import { editAction } from '../../store/todos/todo.actions';
 
@@ -42,9 +45,11 @@ export class TodoItemComponent implements OnInit {
       this.editInputEl.nativeElement.select();
     }, 1);
   }
+
   unsetEditing(): void {
     this.editing = false;
   }
+
   editTodo(): void {
     if (this.editInput.valid) {
       this.store.dispatch(
@@ -55,5 +60,9 @@ export class TodoItemComponent implements OnInit {
       );
       this.unsetEditing();
     }
+  }
+
+  deleteTodo(): void {
+    this.store.dispatch(deleteTodoAction({ id: this.todo.id }));
   }
 }
