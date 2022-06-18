@@ -4,6 +4,7 @@ import {
   deleteTodoAction,
   editAction,
   toggleCompletedAction,
+  toggleCompletedAllAction,
 } from './todo.actions';
 import { Todo } from '../../todos/models/todo.model';
 
@@ -22,5 +23,8 @@ export const todoReducer = createReducer(
   ),
   on(deleteTodoAction, (state, { id }) =>
     state.filter((todo) => todo.id !== id)
+  ),
+  on(toggleCompletedAllAction, (state) =>
+    state.map((todo) => ({ ...todo, completed: !todo.completed }))
   )
 );
